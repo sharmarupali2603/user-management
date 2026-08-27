@@ -1,0 +1,178 @@
+<div class="dashboard">
+
+    <header class="dashboard-header">
+
+        <div>
+            <h1>User Management</h1>
+
+            <p>
+                Manage application users
+            </p>
+        </div>
+
+        <button
+  type="button"
+  class="logout-button"
+  (click)="logout()"
+>
+  Logout
+</button>
+
+    </header>
+
+    <main class="content">
+
+        <section class="users-card">
+
+            <div class="card-header">
+
+                <div>
+                    <h2>Users</h2>
+
+                    <p>
+                        Manage your users and their roles.
+                    </p>
+                </div>
+
+                <button type="button" class="add-button" (click)="openAddForm()">
+                    + Add User
+                </button>
+
+            </div>
+
+            @if (loading$ | async) {
+
+            <div class="loading">
+                Loading users...
+            </div>
+
+            }
+
+            @if (error$ | async; as error) {
+
+            <div class="error-message" role="alert">
+                {{ error }}
+            </div>
+
+            }
+
+            @if (users$ | async; as users) {
+
+            @if (users.length > 0) {
+
+            <div class="table-container">
+
+                <table>
+
+                    <thead>
+
+                        <tr>
+
+                            <th>ID</th>
+
+                            <th>Username</th>
+
+                            <th>Email</th>
+
+                            <th>Job Role</th>
+
+                            <th>Actions</th>
+
+                        </tr>
+
+                    </thead>
+
+                    <tbody>
+
+                        @for (user of users; track user.id) {
+
+                        <tr>
+
+                            <td>
+                                {{ user.id }}
+                            </td>
+
+                            <td>
+                                {{ user.username }}
+                            </td>
+
+                            <td>
+                                {{ user.email }}
+                            </td>
+
+                            <td>
+                                <span class="role">
+                                    {{ user['job-role'] }}
+                                </span>
+                            </td>
+
+                            <td>
+
+                                <div class="actions">
+
+                                    <button type="button" class="edit-button" (click)="openEditForm(user)">
+                                        Edit
+                                    </button>
+
+                                    <button type="button" class="delete-button" (click)="deleteUser(user)">
+                                        Delete
+                                    </button>
+
+                                </div>
+
+                            </td>
+
+                        </tr>
+
+                        }
+
+                    </tbody>
+
+                </table>
+
+            </div>
+
+            } @else {
+
+            <div class="empty-state">
+
+                <h3>No users found</h3>
+
+                <p>
+                    There are no users available.
+                </p>
+
+            </div>
+
+            }
+
+            }
+
+        </section>
+
+    </main>
+
+</div>
+@if (showForm) {
+
+  <div
+    class="modal-backdrop"
+    (click)="closeForm()"
+  >
+
+    <div
+      class="modal"
+      (click)="$event.stopPropagation()"
+    >
+
+      <app-user-form
+        [user]="selectedUser"
+        (save)="saveUser($event)"
+        (cancel)="closeForm()"
+      />
+
+    </div>
+
+  </div>
+
+}

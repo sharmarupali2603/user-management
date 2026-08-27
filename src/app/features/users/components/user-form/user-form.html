@@ -1,0 +1,172 @@
+<div class="form-container">
+
+  <div class="form-header">
+
+    <h2>
+      {{ isEditMode ? 'Edit User' : 'Add User' }}
+    </h2>
+
+    <button
+      type="button"
+      class="close-button"
+      aria-label="Close"
+      (click)="onCancel()"
+    >
+      ×
+    </button>
+
+  </div>
+
+  <form
+    [formGroup]="userForm"
+    (ngSubmit)="onSubmit()"
+    novalidate
+  >
+
+    <!-- Username -->
+
+    <div class="form-group">
+
+      <label for="username">
+        Username
+      </label>
+
+      <input
+        id="username"
+        type="text"
+        formControlName="username"
+        autocomplete="username"
+      />
+
+      @if (
+        userForm.controls.username.touched &&
+        userForm.controls.username.invalid
+      ) {
+
+        <div class="field-error">
+
+          @if (
+            userForm.controls.username.errors?.['required']
+          ) {
+            Username is required.
+          }
+
+          @if (
+            userForm.controls.username.errors?.['minlength']
+          ) {
+            Username must be at least 3 characters.
+          }
+
+          @if (
+            userForm.controls.username.errors?.['maxlength']
+          ) {
+            Username cannot exceed 30 characters.
+          }
+
+        </div>
+
+      }
+
+    </div>
+
+    <!-- Email -->
+
+    <div class="form-group">
+
+      <label for="email">
+        Email
+      </label>
+
+      <input
+        id="email"
+        type="email"
+        formControlName="email"
+        autocomplete="email"
+      />
+
+      @if (
+        userForm.controls.email.touched &&
+        userForm.controls.email.invalid
+      ) {
+
+        <div class="field-error">
+
+          @if (
+            userForm.controls.email.errors?.['required']
+          ) {
+            Email is required.
+          }
+
+          @if (
+            userForm.controls.email.errors?.['email']
+          ) {
+            Please enter a valid email address.
+          }
+
+        </div>
+
+      }
+
+    </div>
+
+    <!-- Job Role -->
+
+    <div class="form-group">
+
+      <label for="jobRole">
+        Job Role
+      </label>
+
+      <select
+        id="jobRole"
+        formControlName="jobRole"
+      >
+
+        @for (role of jobRoles; track role) {
+
+          <option [value]="role">
+            {{ role.toUpperCase() }}
+          </option>
+
+        }
+
+      </select>
+
+      @if (
+        userForm.controls.jobRole.touched &&
+        userForm.controls.jobRole.invalid
+      ) {
+
+        <div class="field-error">
+          Job role is required.
+        </div>
+
+      }
+
+    </div>
+
+    <!-- Buttons -->
+
+    <div class="form-actions">
+
+      <button
+        type="button"
+        class="cancel-button"
+        (click)="onCancel()"
+      >
+        Cancel
+      </button>
+
+      <button
+        type="submit"
+        class="save-button"
+        [disabled]="userForm.invalid"
+      >
+        {{ isEditMode ? 'Update User' : 'Add User' }}
+      </button>
+
+    </div>
+
+  </form>
+
+</div>

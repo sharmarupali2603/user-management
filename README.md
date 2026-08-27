@@ -1,59 +1,102 @@
-# UserManagement
+# User Management Module
 
-This project was generated using [Angular CLI](https://github.com/angular/angular-cli) version 22.1.6.
+A simple User Management application built with Angular and NgRx, with JSON Server used as a simulated REST API backend.
 
-## Development server
+The application provides mock authentication and complete user CRUD functionality.
 
-To start a local development server, run:
+## Features
 
-```bash
-ng serve
-```
+### Authentication
 
-Once the server is running, open your browser and navigate to `http://localhost:4200/`. The application will automatically reload whenever you modify any of the source files.
+- Mock username/password login
+- Login form validation
+- Authentication state managed using NgRx
+- Protected User Management route using an Angular route guard
+- Logout functionality
+- Redirect to login when an unauthenticated user attempts to access the dashboard
 
-## Code scaffolding
+### User Management
 
-Angular CLI includes powerful code scaffolding tools. To generate a new component, run:
+- Fetch users from JSON Server
+- Display users in a responsive table
+- Add a new user
+- Edit an existing user
+- Delete a user
+- Numeric sequential user IDs
+- Job role selection
+- Reactive form validation
+- Loading states
+- Error handling
+- Empty-state handling
 
-```bash
-ng generate component component-name
-```
+### State Management
 
-For a complete list of available schematics (such as `components`, `directives`, or `pipes`), run:
+NgRx is used for application state management.
 
-```bash
-ng generate --help
-```
+The implementation includes:
 
-## Building
+- Actions
+- Reducers
+- Effects
+- Selectors
+- Store
 
-To build the project run:
+All user-related API operations are handled through NgRx effects and services rather than directly from the UI components.
 
-```bash
-ng build
-```
+## Technology Stack
 
-This will compile your project and store the build artifacts in the `dist/` directory. By default, the production build optimizes your application for performance and speed.
+- Angular 22
+- TypeScript
+- NgRx 22
+- RxJS
+- JSON Server
+- HTML
+- CSS
+- Angular Reactive Forms
+- Git / GitHub
 
-## Running unit tests
+Nx was not used because it is optional in the assignment requirements.
 
-To execute unit tests with the [Vitest](https://vitest.dev/) test runner, use the following command:
+## Project Structure
 
-```bash
-ng test
-```
+```text
+src/
+└── app/
+    ├── core/
+    │   └── guards/
+    │       └── auth.guard.ts
+    │
+    ├── features/
+    │   ├── auth/
+    │   │   ├── login/
+    │   │   └── store/
+    │   │       ├── auth.actions.ts
+    │   │       ├── auth.effects.ts
+    │   │       ├── auth.reducer.ts
+    │   │       └── auth.selectors.ts
+    │   │
+    │   └── users/
+    │       ├── components/
+    │       │   ├── user-list/
+    │       │   └── user-form/
+    │       │
+    │       ├── models/
+    │       │   └── user.model.ts
+    │       │
+    │       ├── services/
+    │       │   └── user.service.ts
+    │       │
+    │       └── store/
+    │           ├── user.actions.ts
+    │           ├── user.effects.ts
+    │           ├── user.reducer.ts
+    │           └── user.selectors.ts
+    │
+    ├── app.config.ts
+    ├── app.routes.ts
+    ├── app.ts
+    └── app.html
 
-## Running end-to-end tests
-
-For end-to-end (e2e) testing, run:
-
-```bash
-ng e2e
-```
-
-Angular CLI does not come with an end-to-end testing framework by default. You can choose one that suits your needs.
-
-## Additional Resources
-
-For more information on using the Angular CLI, including detailed command references, visit the [Angular CLI Overview and Command Reference](https://angular.dev/tools/cli) page.
+db.json
+package.json
+README.md

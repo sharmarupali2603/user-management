@@ -100,3 +100,9 @@ src/
 db.json
 package.json
 README.md
+
+### Demo Credentials
+
+```text
+Username: admin
+Password: admin123
